@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Mirella Festas</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+
+body{
+font-family: 'Segoe UI', sans-serif;
+background: linear-gradient(135deg,#ffd1e8,#ffe7f3);
+margin:0;
+padding:20px;
+}
+
+.app{
+max-width:700px;
+margin:auto;
+background:white;
+border-radius:18px;
+padding:25px;
+box-shadow:0 10px 25px rgba(0,0,0,0.15);
+}
+
+h1{
+text-align:center;
+color:#e91e63;
+margin-bottom:5px;
+}
+
+.sub{
+text-align:center;
+color:#666;
+margin-bottom:20px;
+}
+
+.card{
+background:#fff6fb;
+padding:15px;
+border-radius:12px;
+margin-bottom:15px;
+}
+
+input, select{
+width:100%;
+padding:10px;
+border-radius:8px;
+border:1px solid #ddd;
+margin-top:6px;
+margin-bottom:10px;
+box-sizing:border-box;
+}
+
+button{
+background:#e91e63;
+color:white;
+border:none;
+padding:12px;
+width:100%;
+border-radius:10px;
+font-size:16px;
+cursor:pointer;
+margin-top:10px;
+}
+
+button:hover{
+background:#c2185b;
+}
+
+.lista{
+line-height:1.7;
+margin-top:10px;
+}
+
+.checklist label{
+display:block;
+margin:6px 0;
+}
+
+total{
+font-weight:bold;
+color:#e91e63;
+font-size:18px;
+margin-top:10px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<h1>Mirella Festas 🎉</h1>
+<p class="sub">
+Planeje sua festa com carinho e organize tudo em minutos
+</p>
+
+<div class="card">
+
+<h3>Informações da festa</h3>
+
+<label>Nome do aniversariante</label>
+<input id="nome">
+
+<label>Número de convidados</label>
+<input id="convidados" type="number">
+
+<button onclick="gerar()">Gerar Planejamento</button>
+
+</div>
+
+<div class="card">
+
+<h3>Lista da Festa</h3>
+
+<div class="lista" id="lista"></div>
+
+</div>
+
+<div class="card">
+
+<h3>Calculadora de Balões</h3>
+
+<label>Tamanho do arco</label>
+<select id="arco">
+<option value="80">Arco pequeno (80 balões)</option>
+<option value="120">Arco médio (120 balões)</option>
+<option value="160">Arco grande (160 balões)</option>
+</select>
+
+<button onclick="baloes()">Calcular Balões</button>
+
+<p id="resultado-baloes"></p>
+
+</div>
+
+</div>
+
+<script>
+
+function gerar() {
+  const nome = document.getElementById('nome').value;
+  const convidados = document.getElementById('convidados').value;
+  
+  if (!nome || !convidados) {
+    alert('Por favor, preencha todos os campos!');
+    return;
+  }
+
+  const itens = [
+    '🎂 Bolo e docinhos',
+    '🥤 Bebidas (refrigerante, suco, água)',
+    '🍕 Comidas (pizza, sanduíches)',
+    '🎁 Presentes ou brincadeiras',
+    '🎵 Música/Som',
+    '📷 Fotógrafo ou máquina para fotos',
+    '🧹 Limpeza pós-festa',
+    '🎊 Decoração tema',
+  ];
+
+  let html = `<h4>Planejamento para ${nome}</h4>`;
+  html += `<p>Total de convidados: <strong>${convidados}</strong></p>`;
+  html += '<div class="checklist">';
+  
+  itens.forEach(item => {
+    html += `<label><input type="checkbox"> ${item}</label>`;
+  });
+  
+  html += '</div>';
+  
+  document.getElementById('lista').innerHTML = html;
+}
+
+function baloes() {
+  const tamanho = parseInt(document.getElementById('arco').value);
+  const convidados = parseInt(document.getElementById('convidados').value);
+  
+  if (!convidados || convidados <= 0) {
+    alert('Por favor, insira o número de convidados!');
+    return;
+  }
+
+  const baloesNecessarios = tamanho + (convidados * 5);
+  const resultado = `Para ${convidados} convidados e 1 arco, você precisa de aproximadamente <strong>${baloesNecessarios} balões</strong>`;
+  
+  document.getElementById('resultado-baloes').innerHTML = resultado;
+}
+
+</script>
+
+</body>
+</html>
